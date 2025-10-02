@@ -55,7 +55,7 @@ function changeTitle() {
 changeTitle();
 
 // Change title every 3 seconds
-setInterval(changeTitle, 3000);
+setInterval(changeTitle, 6000);
 
 // Background images
 const backgroundImages = [
@@ -70,7 +70,20 @@ const backgroundImages = [
 
 function changeBackground() {
     const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-    document.body.style.backgroundImage = `url('${randomImage}')`;
+
+    // Slide out to the right
+    document.body.style.backgroundPosition = '120% center';
+
+    // After slide out, change image and slide in from right
+    setTimeout(() => {
+        document.body.style.backgroundImage = `url('${randomImage}')`;
+        document.body.style.backgroundPosition = '120% center';
+
+        // Slide in to final position
+        setTimeout(() => {
+            document.body.style.backgroundPosition = '75% center';
+        }, 50);
+    }, 1000);
 }
 
 // Change background every 6 seconds
