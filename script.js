@@ -78,11 +78,9 @@ images.forEach((src, index) => {
     // Determine image width based on screen size
     const imgWidth = window.innerWidth <= 768 ? 120 : 200;
 
-    // Random starting position on the right side (or full screen on mobile)
+    // Random starting position across full screen
     const isMobile = window.innerWidth <= 768;
-    const startX = isMobile
-        ? Math.random() * (window.innerWidth - imgWidth)
-        : window.innerWidth / 2 + Math.random() * (window.innerWidth / 2 - imgWidth);
+    const startX = Math.random() * (window.innerWidth - imgWidth);
     const startY = Math.random() * (window.innerHeight - imgWidth);
     img.style.left = startX + 'px';
     img.style.top = startY + 'px';
@@ -111,17 +109,9 @@ images.forEach((src, index) => {
             let x = rect.left + velocityX;
             let y = rect.top + velocityY;
 
-            // Bounce off edges
-            if (isMobile) {
-                // Full screen bouncing on mobile
-                if (x <= 0 || x + rect.width >= window.innerWidth) {
-                    velocityX *= -1;
-                }
-            } else {
-                // Constrained to right side on desktop
-                if (x <= window.innerWidth / 2 || x + rect.width >= window.innerWidth) {
-                    velocityX *= -1;
-                }
+            // Bounce off edges - full screen
+            if (x <= 0 || x + rect.width >= window.innerWidth) {
+                velocityX *= -1;
             }
 
             if (y <= 0 || y + rect.height >= window.innerHeight) {
